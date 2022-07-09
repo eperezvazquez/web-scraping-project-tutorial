@@ -5,6 +5,7 @@ import sqlite3
 import requests
 from bs4 import BeautifulSoup
 import tqdm
+import matplotlib.pyplot as plt
 
 url = "https://www.macrotrends.net/stocks/charts/TSLA/tesla/revenue"
 
@@ -39,7 +40,6 @@ for tr in tqdm.tqdm(lista_tr):
 
 print(revenue_ls)
 
-
 revenue_df = pd.DataFrame(revenue_ls, columns=["Date", "Revenue"])
 
 revenue_df.head()
@@ -61,13 +61,13 @@ connection = sqlite3.Connection("Tesla.db")
 c = connection.cursor()
 #Step 8: Let's create a table in our database to store our revenue values:
 # Create table
-c.execute('''CREATE TABLE revenue3
+c.execute('''CREATE TABLE revenue4
 (Date, Revenue)''')
 
 records = revenue_df.to_records(index=False)
 list_of_tuples = list(records)
 # Insert the values
-c.executemany('INSERT INTO revenue3 VALUES (?,?)', list_of_tuples)
+c.executemany('INSERT INTO revenue4 VALUES (?,?)', list_of_tuples)
 # Save (commit) the changes
 connection.commit()
 # We can also close the connection if we are done with it.
@@ -81,7 +81,7 @@ c = connection.cursor()
 
 #Next time we run this file, it just connects to the database, and if the database is not there, it will create one.
 #https://docs.python.org/3/library/sqlite3.html
-for row in c.execute('SELECT * FROM revenue3 ORDER BY date'):
+for row in c.execute('SELECT * FROM revenue4 ORDER BY date'):
         print(row)
 #Step 10: Finally create a plot to visualize the data
 #What kind of visualizations show we do?

@@ -82,6 +82,7 @@ c = connection.cursor()
 #Next time we run this file, it just connects to the database, and if the database is not there, it will create one.
 #https://docs.python.org/3/library/sqlite3.html
 for row in c.execute('SELECT * FROM revenue3 ORDER BY date'):
+        print(row)
 #Step 10: Finally create a plot to visualize the data
 #What kind of visualizations show we do?
 #revenue_df.head()
